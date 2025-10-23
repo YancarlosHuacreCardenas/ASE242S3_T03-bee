@@ -12,10 +12,10 @@ services:
     networks:
       - my-network
     volumes:
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql # Ejecuta tu script al iniciar
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
   backend:
-    image: nayeliherreraalbino/altavista-backend:1.0
+    build: .  # usa tu Dockerfile para construir la imagen
     container_name: springboot-app
     ports:
       - "8080:8080"
@@ -33,13 +33,13 @@ services:
       - my-network
     command: >
       sh -c "
-        echo 'Esperando que SQL Server esté disponible...';
+        echo 'Esperando SQL Server...';
         until nc -z sqlserver 1433; do
-          echo 'Aún no está listo, esperando 5s...';
+          echo 'SQL Server no listo, esperando 5s...';
           sleep 5;
         done;
-        echo 'SQL Server disponible — iniciando backend.';
-        sleep 10; # espera adicional para que el init.sql se ejecute
+        echo 'SQL Server listo, iniciando backend...';
+        sleep 10;
         java -jar /app/app.jar
       "
 
