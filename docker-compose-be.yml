@@ -1,36 +1,22 @@
 version: '3.8'
-
 services:
   backend:
-    image: nayeliherreraalbino/altavista-backend:1.0   # o usa build: . si quieres construir local
+    image: nayeliherreraalbino/altavista-backend:1.0
     container_name: springboot-app
     ports:
       - "8080:8080"
     environment:
       - PORT=8080
       - SERVER_URL=http://localhost:8080
-      - SPRING_DATASOURCE_URL=jdbc:sqlserver://sqlserver:1433;databaseName=AltavistaDB;encrypt=false;trustServerCertificate=true
+      - SPRING_DATASOURCE_URL=jdbc:sqlserver://3.85.184.82:1433;databaseName=AltavistaDB;encrypt=false;trustServerCertificate=true
       - SPRING_DATASOURCE_USERNAME=sa
       - SPRING_DATASOURCE_PASSWORD=MiPassword123!
       - SPRING_DATASOURCE_DRIVER_CLASS_NAME=com.microsoft.sqlserver.jdbc.SQLServerDriver
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    restart: unless-stopped
     networks:
-      - my-network
-    depends_on:
-      - sqlserver
-    command: >
-      sh -c "
-        echo 'Esperando que SQL Server esté disponible...';
-        until nc -z sqlserver 1433; do
-          echo 'Aún no está listo, esperando 5s...';
-          sleep 5;
-        done;
-        echo 'SQL Server aparentemente disponible, esperando 10s más...';
-        sleep 10;
-        echo 'Iniciando backend...';
-        java -jar /app/app.jar
-      "
+      - altavista-net
 
 networks:
-  my-network:
-    external: true
+  altavista-net:
+    driver: bridge

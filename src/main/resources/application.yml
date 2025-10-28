@@ -1,9 +1,10 @@
 server:
   port: ${PORT:8080}
-  address: 0.0.0.0
+  url: ${SERVER_URL:http://localhost:8080}
+
 spring:
   datasource:
-    url: jdbc:sqlserver://3.233.215.100:1433;databaseName=AltavistaDB;encrypt=false;trustServerCertificate=true
+    url: jdbc:sqlserver://localhost:1433;databaseName=AltavistaDB;encrypt=false;trustServerCertificate=true
     username: sa
     password: MiPassword123!
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver

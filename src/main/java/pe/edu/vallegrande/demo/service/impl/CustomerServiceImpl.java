@@ -56,6 +56,10 @@ public class CustomerServiceImpl implements CustomerService {
             existente.setPreferences(customer.getPreferences());
             existente.setClientType(customer.getClientType());
             existente.setUpdatedAt(LocalDateTime.now());
+
+            // ✅ CORRECCIÓN IMPORTANTE:
+            existente.setIsActive(customer.getIsActive());
+
             return repo.save(existente);
         }
         return null;

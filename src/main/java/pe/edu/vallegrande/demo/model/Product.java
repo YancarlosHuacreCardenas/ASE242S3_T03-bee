@@ -12,6 +12,7 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id")
+    @JsonProperty("product_id") // 🔹 Ahora Angular recibirá product_id
     private Integer productId;
 
     @Column(name = "name", nullable = false, length = 100)
@@ -51,8 +52,7 @@ public class Product {
     private String nutritionalInfo;
 
     // Constructores
-    public Product() {
-    }
+    public Product() {}
 
     public Product(String name, String description, BigDecimal price, String category) {
         this.name = name;
