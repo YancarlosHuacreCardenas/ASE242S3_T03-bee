@@ -10,6 +10,6 @@ public interface ProductService {
     Product buscarPorId(Integer id);
     Product crear(Product product);
     Product editar(Integer id, Product product);
-    void eliminar(Integer id);
-    void restaurar(Integer id);
+    Product eliminar(Integer id);  // 👈 cambia a Product
+    Product restaurar(Integer id); // 👈 cambia a Product
 }

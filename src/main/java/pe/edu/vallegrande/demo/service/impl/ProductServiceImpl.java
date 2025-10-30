@@ -5,7 +5,6 @@ import pe.edu.vallegrande.demo.model.Product;
 import pe.edu.vallegrande.demo.repository.ProductRepository;
 import pe.edu.vallegrande.demo.service.ProductService;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -63,21 +62,25 @@ public class ProductServiceImpl implements ProductService {
         return null;
     }
 
+    // ✅ Desactivar producto (soft delete)
     @Override
-    public void eliminar(Integer id) {
+    public Product eliminar(Integer id) {
         Product product = buscarPorId(id);
         if (product != null) {
             product.setIsAvailable(false);
-            repo.save(product);
+            return repo.save(product); // ✅ retorna producto actualizado
         }
+        return null;
     }
 
+    // ✅ Restaurar producto
     @Override
-    public void restaurar(Integer id) {
+    public Product restaurar(Integer id) {
         Product product = buscarPorId(id);
         if (product != null) {
             product.setIsAvailable(true);
-            repo.save(product);
+            return repo.save(product); // ✅ retorna producto actualizado
         }
+        return null;
     }
 }
