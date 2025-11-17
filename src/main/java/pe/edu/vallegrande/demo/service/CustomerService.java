@@ -12,4 +12,7 @@ public interface CustomerService {
     Customer editar(Integer id, Customer customer);
     void eliminar(Integer id);
     void restaurar(Integer id);
+
+    // 🔍 Nuevo método de búsqueda
+    List<Customer> buscarConFiltros(String search, String type, Boolean active);
 }

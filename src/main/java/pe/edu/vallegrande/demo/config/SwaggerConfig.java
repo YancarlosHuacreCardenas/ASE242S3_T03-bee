@@ -21,6 +21,7 @@ public class SwaggerConfig {
                                 .name("Equipo Vallegrande")
                                 .email("soporte@vallegrande.edu.pe")
                                 .url("https://vallegrande.edu.pe"))
+                                
                 );
     }
 }

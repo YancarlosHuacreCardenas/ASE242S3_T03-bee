@@ -56,10 +56,7 @@ public class CustomerServiceImpl implements CustomerService {
             existente.setPreferences(customer.getPreferences());
             existente.setClientType(customer.getClientType());
             existente.setUpdatedAt(LocalDateTime.now());
-
-            // ✅ CORRECCIÓN IMPORTANTE:
             existente.setIsActive(customer.getIsActive());
-
             return repo.save(existente);
         }
         return null;
@@ -83,5 +80,16 @@ public class CustomerServiceImpl implements CustomerService {
             customer.setUpdatedAt(LocalDateTime.now());
             repo.save(customer);
         }
+    }
+
+    // 🔍 NUEVO: Lógica de filtros combinados
+    @Override
+    public List<Customer> buscarConFiltros(String search, String type, Boolean active) {
+
+        // Limpieza de parámetros
+        if (search != null && search.trim().isEmpty()) search = null;
+        if (type != null && type.trim().isEmpty()) type = null;
+
+        return repo.filterCustomers(search, type, active);
     }
 }

@@ -1,17 +1,18 @@
 server:
-  port: ${PORT:8080}
-  url: ${SERVER_URL:http://localhost:8080}
+  port: 8080
+  address: 0.0.0.0
 
 spring:
   datasource:
-    url: jdbc:sqlserver://localhost:1433;databaseName=AltavistaDB;encrypt=false;trustServerCertificate=true
+    url: jdbc:sqlserver://52.90.18.182:1433;databaseName=AltavistaDB;encrypt=false;trustServerCertificate=true
     username: sa
     password: MiPassword123!
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+
   jpa:
     database-platform: org.hibernate.dialect.SQLServerDialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: none   # ← IMPORTANTE: cambia "update" por "none"
     show-sql: true
 
 springdoc:
