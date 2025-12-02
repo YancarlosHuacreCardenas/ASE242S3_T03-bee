@@ -4,7 +4,7 @@ server:
 
 spring:
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:sqlserver://54.225.147.145:1433;databaseName=AltavistaDB;encrypt=false;trustServerCertificate=true}
+    url: ${SPRING_DATASOURCE_URL:jdbc:sqlserver://34.236.8.86:1433;databaseName=AltavistaDB;encrypt=false;trustServerCertificate=true}
     username: ${SPRING_DATASOURCE_USERNAME:sa}
     password: ${SPRING_DATASOURCE_PASSWORD:MiPassword123!}
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
