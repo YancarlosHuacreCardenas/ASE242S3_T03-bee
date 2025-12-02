@@ -2,9 +2,12 @@ package pe.edu.vallegrande.demo.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.LocalDateTime;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Data
@@ -28,12 +31,24 @@ public class Reservation {
     @Column(length = 50)
     private String status = "Pendiente";
 
-    // 🔹 Relaciones (FK)
     @ManyToOne
+    @JsonIgnoreProperties({"reservations"})
     @JoinColumn(name = "customer_customer_id", nullable = false)
     private Customer customer;
 
     @ManyToOne
+    @JsonIgnoreProperties({"reservations"})
     @JoinColumn(name = "table_spot_table_id", nullable = false)
     private TableSpot tableSpot;
+
+    @Column(name = "is_active", nullable = false)
+    private Boolean isActive = true;
+
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 }

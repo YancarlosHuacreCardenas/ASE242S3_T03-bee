@@ -106,6 +106,9 @@ BEGIN
         status NVARCHAR(50) DEFAULT 'Pendiente',
         customer_customer_id INT NOT NULL,
         table_spot_table_id INT NOT NULL,
+        is_active BIT DEFAULT 1,
+        created_at DATETIME DEFAULT GETDATE(),
+        updated_at DATETIME DEFAULT GETDATE(),
         CONSTRAINT FK_reservation_customer FOREIGN KEY (customer_customer_id) REFERENCES customer(customer_id),
         CONSTRAINT FK_reservation_table FOREIGN KEY (table_spot_table_id) REFERENCES table_spot(table_id)
     );
@@ -148,6 +151,31 @@ BEGIN
 END
 GO
 
+-- ====================================================
+-- TABLA: admin_user
+-- - Esquema explícito dbo para evitar errores en Spring Boot
+-- ====================================================
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'admin_user' AND schema_id = SCHEMA_ID('dbo'))
+BEGIN
+    CREATE TABLE dbo.admin_user (
+        user_id INT IDENTITY(1,1) PRIMARY KEY,
+        username NVARCHAR(50) UNIQUE NOT NULL,
+        password NVARCHAR(255) NOT NULL, -- Hashear luego
+        is_active BIT DEFAULT 1,
+        created_at DATETIME DEFAULT GETDATE()
+    );
+
+    INSERT INTO dbo.admin_user (username, password)
+    VALUES 
+    ('nayeli', 'nayeliha123'),
+    ('yancarlos', 'yancarlos123');
+END
+GO
+
+SELECT TABLE_SCHEMA, TABLE_NAME
+FROM INFORMATION_SCHEMA.TABLES
+WHERE TABLE_NAME = 'admin_user';
+GO
 -- ====================================================
 -- INSERTS: 10 registros por tabla (maestras y transaccionales)
 -- Datos coherentes para Altavista Rooftop
